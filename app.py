@@ -70,4 +70,12 @@ st_shap(shap.force_plot(explainer.expected_value[1], shap_values_input.values[0,
 
 # Decision plot for class 1
 st.subheader("Decision Plot for Malignant Class")
-st_shap(shap.decision_plot(explainer.expected_value[1], shap_values_input.values[0, :, 1], input_df.columns))
+
+fig, ax = plt.subplots()
+shap.decision_plot(
+    explainer.expected_value[1],
+    shap_values_input.values[0, :, 1],
+    input_df.columns,
+    show=False
+)
+st.pyplot(fig)
