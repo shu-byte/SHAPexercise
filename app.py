@@ -1,3 +1,4 @@
+%%writefile app.py
 import streamlit as st
 import shap
 import pandas as pd
@@ -26,7 +27,7 @@ y_pred = clf.predict(X_test)
 
 # SHAP explainer (new interface)
 explainer = shap.TreeExplainer(clf)
-shap_values = explainer(X_test)  # note: returns a shap.Explanation object
+shap_values = explainer(X_test)  # shap.Explanation object
 
 # Streamlit app
 st.title("SHAP Analysis for Breast Cancer Prediction")
@@ -38,8 +39,6 @@ st.dataframe(classification_report(y_test, y_pred, output_dict=True))
 # Summary plot for class 1 (malignant)
 st.subheader("Summary Plot for Malignant Class (1)")
 fig, ax = plt.subplots()
-# shap_values.values shape: (num_samples, num_features, num_classes)
-# We plot class 1 shap values for all samples
 shap.summary_plot(shap_values.values[:, :, 1], X_test, show=False)
 st.pyplot(fig)
 
@@ -70,7 +69,6 @@ st_shap(shap.force_plot(explainer.expected_value[1], shap_values_input.values[0,
 
 # Decision plot for class 1
 st.subheader("Decision Plot for Malignant Class")
-
 fig, ax = plt.subplots()
 shap.decision_plot(
     explainer.expected_value[1],
