@@ -1,0 +1,7 @@
+streamlit
+shap>=0.40.0
+scikit-learn
+pandas
+numpy
+matplotlib
+streamlit-shap
